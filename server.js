@@ -95,6 +95,12 @@ async function initializeDatabase() {
     }
 }
 
+app.get('/privacy-policy', (req, res) => {
+    res.sendFile(__dirname + '/templates/privacy.html');
+});
+app.get('/terms-conditions', (req, res) => {
+    res.sendFile(__dirname + '/templates/terms.html');
+});
 // --- 3. The Route ---
 app.get('/meet/:agentName', async (req, res) => {
     function escapeHtml(text) {

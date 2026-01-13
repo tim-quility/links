@@ -112,7 +112,7 @@
                             <div class="flex items-start space-x-3 pt-2">
                                 <input type="checkbox" id="consent" class="mt-1 h-4 w-4 text-slate-800 border-gray-300 rounded focus:ring-slate-500" required>
                                 <label for="consent" class="text-xs text-gray-600 leading-snug cursor-pointer">
-                                    I agree to the <a href="{{PRIVACY_URL}}" class="underline text-slate-800 hover:text-black">Privacy Policy</a> & Terms of Use.
+                                    I agree to the <a href="/privacy-policy" target="_blank" class="text-blue-500 hover:underline">Privacy Policy</a> & <a href="/terms-conditions" target="_blank" class="text-blue-500 hover:underline">Terms & Conditions</a>
                                 </label>
                             </div>
 
@@ -143,3 +143,5 @@
 
 </body>
 </html>
+
+sudo certbot --nginx -d sfginsured.com -d www.sfginsured.com
