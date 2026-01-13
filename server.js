@@ -2,10 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const { pool, checkDbConnection } = require('./db');
-require('dotenv').config({
-  path: '/var/www/.env'
-});
-
+require('dotenv').config({ path: '/var/www/.env' });
 const helmet = require('helmet');
 
 const app = express();
