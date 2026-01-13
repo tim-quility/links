@@ -15,13 +15,13 @@ app.use(
         defaultSrc: ["'self'"], 
         
         // Allow scripts from your site AND common CDNs (if you use them)
-        scriptSrc: ["'self'", "'unsafe-inline'"], 
+        scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com"],
         
         // Allow styles from your site AND Google Fonts
-        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com", "https://cdn.tailwindcss.com/"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
         
         // Allow loading fonts from Google
-        fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com","https://cdn.tailwindcss.com/"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
         
         // Allow images from ANYWHERE (Since agent logos might come from different URLs)
         imgSrc: ["'self'", "data:", "https:"], 
