@@ -3,8 +3,37 @@ const fs = require('fs');
 const path = require('path');
 const { pool, checkDbConnection } = require('./db');
 require('dotenv').config({ path: '/var/www/.env' });
+const helmet = require('helmet');
 
 const app = express();
+app.disable('x-powered-by');
+
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"], 
+        
+        // Allow scripts from your site AND common CDNs (if you use them)
+        scriptSrc: ["'self'", "'unsafe-inline'"], 
+        
+        // Allow styles from your site AND Google Fonts
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        
+        // Allow loading fonts from Google
+        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        
+        // Allow images from ANYWHERE (Since agent logos might come from different URLs)
+        imgSrc: ["'self'", "data:", "https:"], 
+        
+        // specific to preventing clickjacking
+        frameAncestors: ["'none'"], 
+      },
+    },
+    // If you don't use HTTPS on localhost, this avoids browser errors during dev
+    strictTransportSecurity: process.env.NODE_ENV === 'production', 
+  })
+);
 // Auto-fix port 3306 to 3005 if needed
 const PORT = (process.env.PORT == 3306) ? 3005 : (process.env.PORT || 3005);
 
@@ -67,10 +96,19 @@ async function initializeDatabase() {
 }
 
 // --- 3. The Route ---
-app.get('/sms-compliance', async (req, res) => {
+app.get('/meet/:agentName', async (req, res) => {
+    function escapeHtml(text) {
+        if (!text) return text;
+        return text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
     try {
-        const host = req.get('host');
-        let subdomain = host.split('.')[0];
+
+        const subdomain = req.params.agentName;
         if (req.query.agent) subdomain = req.query.agent;
 
         console.log(`🔍 Lookup request for agent: ${subdomain}`);
@@ -92,18 +130,14 @@ app.get('/sms-compliance', async (req, res) => {
 
         const fullName = `${agent.first_name} ${agent.last_name}`;
 
-        // DEBUG 3: Is the template empty?
-        if (!complianceTemplate) {
-             console.error('❌ CRITICAL: Compliance Template string is empty!');
-             return res.status(500).send('Template Error');
-        }
-
+        // SANITIZE EVERYTHING before putting it in HTML
         let finalHtml = complianceTemplate
-            .replace(/{{BRAND_NAME}}/g, agent.brand_name)
-            .replace(/{{AGENT_NAME}}/g, fullName)
-            .replace(/{{PHONE}}/g, agent.phone_number)
+            .replace(/{{BRAND_NAME}}/g, escapeHtml(agent.brand_name))
+            .replace(/{{AGENT_NAME}}/g, escapeHtml(fullName))
+            .replace(/{{PHONE}}/g, escapeHtml(agent.phone_number))
+            // Urls are tricky, escapeHtml might break them if they have ampersands, 
+            // but usually safer to leave URL distinct or use encodeURI()
             .replace(/{{PRIVACY_URL}}/g, agent.privacy_policy_url || '#');
-        
         // DEBUG 4: Did the replacement work?
         if (finalHtml.includes('{{BRAND_NAME}}')) {
              console.warn('⚠️ WARNING: Placeholders were NOT replaced. Check HTML syntax.');

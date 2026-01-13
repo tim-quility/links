@@ -24,8 +24,6 @@ async function checkDbConnection() {
         return true;
     } catch (error) {
         console.error('❌ DATABASE CONNECTION ERROR:');
-        console.error(`   Message: ${error.message}`);
-        console.error(`   Code:    ${error.code}`);
         if (error.code === 'ER_ACCESS_DENIED_ERROR') {
             console.error('   👉 HINT: Check your DB_USER and DB_PASSWORD in .env');
         } else if (error.code === 'ECONNREFUSED') {
@@ -39,3 +37,4 @@ async function checkDbConnection() {
 
 // Export the pool AND the checker
 module.exports = { pool, checkDbConnection };
+
