@@ -103,18 +103,3 @@
 
 </body>
 </html>
-<script>
-    function goBackOrClose() {
-        if (window.history.length > 1) {
-            // If there is history, go back
-            window.history.back();
-        } else {
-            // If opened in a new tab, close this tab
-            window.close();
-            // Fallback if browser blocks closing: tell them to close it manually
-            setTimeout(() => {
-                alert("Please close this tab to return to the agent's profile.");
-            }, 100);
-        }
-    }
-</script>
