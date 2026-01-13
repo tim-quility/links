@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{BRAND_NAME}} | Quote Request</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Merriweather', serif; }
+        .gold-border { border-color: #C5A059; } /* Classic "Insurance Gold" */
+        .text-gold { color: #C5A059; }
+        .bg-navy { background-color: #0F172A; }
+    </style>
+</head>
+<body class="bg-white min-h-screen flex flex-col">
+
+    <div class="bg-navy text-white text-xs py-2">
+        <div class="max-w-4xl mx-auto px-6 flex justify-between items-center">
+            <span><i class="fa-solid fa-check-circle text-gold mr-1"></i> Licensed & Insured</span>
+            <span class="opacity-90"><i class="fa-solid fa-phone mr-1"></i> {{PHONE}}</span>
+        </div>
+    </div>
+
+    <header class="border-b border-gray-100 bg-white py-6">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-2xl font-bold text-slate-800 tracking-tight">
+                {{BRAND_NAME}}
+            </div>
+            <div class="text-right hidden md:block">
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Assigned Agent</p>
+                <p class="text-sm font-medium text-slate-700">{{AGENT_NAME}}</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow bg-slate-50 py-12">
+        <div class="max-w-4xl mx-auto px-6">
+            
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+                
+                <div class="md:col-span-2 pt-4">
+                    <h1 class="text-3xl font-bold text-slate-900 leading-tight mb-4">
+                        Protecting what matters most.
+                    </h1>
+                    <p class="text-slate-600 mb-6 leading-relaxed text-sm">
+                        Thank you for your interest in {{BRAND_NAME}}. We provide personalized coverage options tailored to your family's needs.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-800 mt-1">
+                                <i class="fa-solid fa-shield-heart text-sm"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-bold text-slate-900">Comprehensive Coverage</h3>
+                                <p class="text-xs text-gray-500">Life, Health, and Final Expense options.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-800 mt-1">
+                                <i class="fa-solid fa-user-tie text-sm"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-bold text-slate-900">Local Experts</h3>
+                                <p class="text-xs text-gray-500">Work directly with {{AGENT_NAME}}.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-3">
+                    <div class="bg-white p-6 md:p-8 rounded-none border-t-4 gold-border shadow-sm">
+                        <h2 class="text-xl font-bold text-slate-800 mb-6">Request Your Quote</h2>
+                        
+                        <form action="#" method="POST" onsubmit="event.preventDefault();" class="space-y-4">
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">First Name</label>
+                                    <input type="text" class="w-full px-3 py-2 border border-gray-300 focus:border-slate-500 focus:ring-0 outline-none text-sm transition-colors" placeholder="Jane">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Last Name</label>
+                                    <input type="text" class="w-full px-3 py-2 border border-gray-300 focus:border-slate-500 focus:ring-0 outline-none text-sm transition-colors" placeholder="Doe">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Mobile Phone</label>
+                                <input type="tel" placeholder="{{PHONE}}" class="w-full px-3 py-2 border border-gray-300 focus:border-slate-500 focus:ring-0 outline-none text-sm transition-colors">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Information Requested</label>
+                                <select class="w-full px-3 py-2 border border-gray-300 focus:border-slate-500 focus:ring-0 outline-none text-sm bg-white cursor-pointer">
+                                    <option>Life Insurance Information</option>
+                                    <option>Mortgage Protection Info</option>
+                                    <option>Final Expense Quote</option>
+                                    <option>General Callback Request</option>
+                                </select>
+                            </div>
+
+                            <div class="flex items-start space-x-3 pt-2">
+                                <input type="checkbox" id="consent" class="mt-1 h-4 w-4 text-slate-800 border-gray-300 rounded focus:ring-slate-500" required>
+                                <label for="consent" class="text-xs text-gray-600 leading-snug cursor-pointer">
+                                    I agree to the <a href="{{PRIVACY_URL}}" class="underline text-slate-800 hover:text-black">Privacy Policy</a> & Terms of Use.
+                                </label>
+                            </div>
+
+                            <button type="submit" class="w-full bg-slate-900 hover:bg-black text-white font-bold py-3 text-sm tracking-wide uppercase transition-colors">
+                                Submit Request
+                            </button>
+
+                            <p class="text-[10px] text-gray-400 mt-4 leading-relaxed border-t border-gray-100 pt-3">
+                                By clicking 'Submit Request', I give my express written consent to receive marketing and informational text messages from <strong>{{BRAND_NAME}}</strong> at the phone number provided. Consent is not a condition of purchase. Msg & data rates may apply. Msg frequency varies. Reply STOP to cancel, HELP for help.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-8">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <p class="text-xs text-gray-400 mb-2">&copy; 2026 {{BRAND_NAME}}. All rights reserved.</p>
+            <div class="max-w-xl mx-auto border-t border-gray-100 pt-4 mt-4">
+                <p class="text-[10px] text-gray-400 uppercase tracking-wider font-bold mb-1">Privacy Guarantee</p>
+                <p class="text-[10px] text-gray-400 italic">"No mobile information will be shared with third parties/affiliates for marketing/promotional purposes."</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
