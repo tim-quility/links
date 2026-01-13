@@ -18,10 +18,10 @@ app.use(
         scriptSrc: ["'self'", "'unsafe-inline'"], 
         
         // Allow styles from your site AND Google Fonts
-        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com", "https://cdn.tailwindcss.com/"],
         
         // Allow loading fonts from Google
-        fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com","https://cdn.tailwindcss.com/"],
         
         // Allow images from ANYWHERE (Since agent logos might come from different URLs)
         imgSrc: ["'self'", "data:", "https:"], 
