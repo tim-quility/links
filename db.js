@@ -1,5 +1,5 @@
 // db.js
-require('dotenv').config({ path: '/var/www/.env' });
+require('dotenv').config();
 const mysql = require('mysql2/promise');
 
 // Create the pool (this doesn't connect yet, it just prepares the config)

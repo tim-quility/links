@@ -2,12 +2,12 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const { pool, checkDbConnection } = require('./db');
-require('dotenv').config({ path: '/var/www/.env' });
+require('dotenv').config();
 const helmet = require('helmet');
 
 const app = express();
 app.disable('x-powered-by');
-
+app.use(express.urlencoded({ extended: true }));
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -95,6 +95,43 @@ async function initializeDatabase() {
     }
 }
 
+app.post('/submit', async (req, res) => {
+    try {
+        console.log('📝 Form Submission Received:', req.body);
+
+        const { agent_handle, first_name, last_name, phone, interest, consent } = req.body;
+
+        // 1. Basic Validation
+        if (!phone || !agent_handle) {
+            return res.status(400).send('Missing required fields.');
+        }
+
+        // 2. Insert into Database
+        const query = `
+            INSERT INTO leads (agent_handle, first_name, last_name, phone, interest, consent)
+            VALUES (?, ?, ?, ?, ?, ?)
+        `;
+
+        await pool.query(query, [
+            agent_handle, 
+            first_name, 
+            last_name, 
+            phone, 
+            interest, 
+            consent === 'on' ? 1 : 0 // Checkboxes send "on" if checked
+        ]);
+
+        console.log('✅ Lead saved to DB!');
+
+        // 3. Redirect to Thank You Page
+        res.redirect(`/thank-you/${agent_handle}`);
+
+    } catch (error) {
+        console.error('🔥 SUBMISSION ERROR:', error);
+        res.status(500).send('There was an error processing your request.');
+    }
+});
+
 app.get('/privacy-policy', (req, res) => {
     res.sendFile(__dirname + '/templates/privacy.html');
 });
@@ -141,9 +178,8 @@ app.get('/meet/:agentName', async (req, res) => {
             .replace(/{{BRAND_NAME}}/g, escapeHtml(agent.brand_name))
             .replace(/{{AGENT_NAME}}/g, escapeHtml(fullName))
             .replace(/{{PHONE}}/g, escapeHtml(agent.phone_number))
-            // Urls are tricky, escapeHtml might break them if they have ampersands, 
-            // but usually safer to leave URL distinct or use encodeURI()
-            .replace(/{{PRIVACY_URL}}/g, agent.privacy_policy_url || '#');
+            .replace(/{{PRIVACY_URL}}/g, agent.privacy_policy_url || '#')
+            .replace(/{{AGENT_HANDLE}}/g, subdomain);
         // DEBUG 4: Did the replacement work?
         if (finalHtml.includes('{{BRAND_NAME}}')) {
              console.warn('⚠️ WARNING: Placeholders were NOT replaced. Check HTML syntax.');
@@ -176,5 +212,7 @@ async function startServer() {
         console.log(`👉 Test URL: http://localhost:${PORT}/sms-compliance?agent=jay-bloom`);
     });
 }
-
+app.get(['/thank-you', '/thank-you/:agentName'], (req, res) => {
+    res.sendFile(__dirname + '/templates/thank-you.html');
+});
 startServer();
