@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const { pool, checkDbConnection } = require('./db');
-require('dotenv').config();
+require('dotenv').config({ path: '/var/www/.env' });
 
 const app = express();
 // Auto-fix port 3306 to 3005 if needed
