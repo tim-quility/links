@@ -1,5 +1,9 @@
 // db.js
-require('dotenv').config();
+require('dotenv').config({
+  path: require('fs').existsSync('.env')
+    ? '.env'
+    : '/var/www/.env'
+});
 const mysql = require('mysql2/promise');
 
 // Create the pool (this doesn't connect yet, it just prepares the config)
