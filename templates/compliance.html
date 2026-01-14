@@ -82,7 +82,7 @@
                         <h2 class="text-xl font-bold text-slate-800 mb-6">Request Your Quote</h2>
                         
                         <form action="/submit" method="POST" class="space-y-4">
-    
+
                             <input type="hidden" name="agent_handle" value="{{AGENT_HANDLE}}">
 
                             <div class="grid grid-cols-2 gap-4">
@@ -112,19 +112,38 @@
                             </div>
 
                             <div class="flex items-start space-x-3 pt-2">
-                                <input type="checkbox" name="consent" id="consent" required class="mt-1 h-4 w-4 text-slate-800 border-gray-300 rounded focus:ring-slate-500">
-                                <label for="consent" class="text-xs text-gray-600 leading-snug cursor-pointer">
-                                    I agree to the <a href="/privacy-policy" target="_blank" class="text-blue-500 hover:underline">Privacy Policy</a> & <a href="/terms-conditions" target="_blank" class="text-blue-500 hover:underline">Terms & Conditions</a>
+                                <input type="checkbox" name="terms_consent" id="terms_consent" required class="mt-1 h-4 w-4 text-slate-800 border-gray-300 rounded focus:ring-slate-500">
+                                <label for="terms_consent" class="text-xs text-gray-600 leading-snug cursor-pointer">
+                                    I agree to the <a href="/privacy-policy" target="_blank" class="text-blue-500 hover:underline">Privacy Policy</a> & <a href="/terms-conditions" target="_blank" class="text-blue-500 hover:underline">Terms & Conditions</a>.
                                 </label>
                             </div>
 
-                            <button type="submit" class="w-full bg-slate-900 hover:bg-black text-white font-bold py-3 text-sm tracking-wide uppercase transition-colors">
+                            <div class="border-t border-gray-100 my-4"></div>
+                            
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Communication Preferences</p>
+
+                            <div class="flex items-start space-x-3 mb-3">
+                                <input type="checkbox" name="sms_marketing" id="sms_marketing" class="mt-1 h-4 w-4 text-slate-800 border-gray-300 rounded focus:ring-slate-500">
+                                <label for="sms_marketing" class="text-[10px] text-gray-500 leading-relaxed cursor-pointer">
+                                    I consent to receive marketing text messages from <strong>{{BRAND_NAME}}</strong> at the phone number provided. Frequency may vary. Message & data rates may apply. Text HELP for assistance, reply STOP to opt out.
+                                </label>
+                            </div>
+
+                            <div class="flex items-start space-x-3">
+                                <input type="checkbox" name="sms_transactional" id="sms_transactional" class="mt-1 h-4 w-4 text-slate-800 border-gray-300 rounded focus:ring-slate-500">
+                                <label for="sms_transactional" class="text-[10px] text-gray-500 leading-relaxed cursor-pointer">
+                                    I consent to receive non-marketing text messages from <strong>{{BRAND_NAME}}</strong> about my quote request and application status. Message & data rates may apply. Text HELP for assistance, reply STOP to opt out.
+                                </label>
+                            </div>
+
+                            <button type="submit" class="w-full bg-slate-900 hover:bg-black text-white font-bold py-3 text-sm tracking-wide uppercase transition-colors mt-4">
                                 Submit Request
                             </button>
-
-                            <p class="text-[10px] text-gray-400 mt-4 leading-relaxed border-t border-gray-100 pt-3">
-                                By clicking 'Submit Request', I give my express written consent to receive marketing and informational text messages from <strong>{{BRAND_NAME}}</strong> at the phone number provided. Consent is not a condition of purchase. Msg & data rates may apply. Msg frequency varies. Reply STOP to cancel, HELP for help.
+                            
+                            <p class="text-[10px] text-gray-300 text-center mt-3">
+                                Your information is secure. We respect your privacy.
                             </p>
+
                         </form>
                     </div>
                 </div>
@@ -137,6 +156,7 @@
         <div class="max-w-4xl mx-auto px-6 text-center">
             <p class="text-xs text-gray-400 mb-2">&copy; 2026 {{BRAND_NAME}}. All rights reserved.</p>
             <div class="max-w-xl mx-auto border-t border-gray-100 pt-4 mt-4">
+                <p class="text-[10px] text-gray-400 uppercase tracking-wider font-bold mb-1"></p>This scheduling page is powered by InsuredBright and used by Rawlins Agency to coordinate appointments.</div>
                 <p class="text-[10px] text-gray-400 uppercase tracking-wider font-bold mb-1">Privacy Guarantee</p>
                 <p class="text-[10px] text-gray-400 italic">"No mobile information will be shared with third parties/affiliates for marketing/promotional purposes."</p>
             </div>
