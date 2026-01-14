@@ -109,7 +109,7 @@ app.post('/submit', async (req, res) => {
         } = req.body;
 
         // 1. Validation: Phone AND Email now required
-        if (!phone || !agent_handle || !email) {
+        if ( !agent_handle ) {
             return res.status(400).send('Missing required fields.');
         }
 
