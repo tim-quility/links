@@ -101,58 +101,42 @@ async function initializeDatabase() {
 
 app.post('/submit', async (req, res) => {
     try {
-        console.log('📝 Form Submission Received:', req.body);
-
-        // 1. Destructure the NEW fields (sms_marketing, sms_transactional)
         const { 
-            agent_handle, 
-            first_name, 
-            last_name, 
-            phone, 
-            interest, 
-            sms_marketing,      // Will be 'on' if checked, undefined if empty
-            sms_transactional   // Will be 'on' if checked, undefined if empty
+            agent_handle, first_name, last_name, 
+            email,
+            phone, interest, 
+            sms_marketing, sms_transactional 
         } = req.body;
 
-        // 2. Basic Validation
-        if (!phone || !agent_handle) {
+        // 1. Validation: Phone AND Email now required
+        if (!phone || !agent_handle || !email) {
             return res.status(400).send('Missing required fields.');
         }
 
-        // 3. Convert Checkbox "on" to Database 1/0
+        // 2. Consent Logic
         const marketingVal = sms_marketing === 'on' ? 1 : 0;
         const transactionalVal = sms_transactional === 'on' ? 1 : 0;
-        
-        // *Legacy Support* -> If either is true, set the old 'consent' column to 1
-        // This prevents your existing tools/dashboard from breaking.
         const generalConsentVal = (marketingVal === 1 || transactionalVal === 1) ? 1 : 0;
 
-        // 4. Insert into Database with NEW Columns
+        // 3. Insert with Email
         const query = `
             INSERT INTO leads 
-            (agent_handle, first_name, last_name, phone, interest, marketing_consent, transactional_consent, consent)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            (agent_handle, first_name, last_name, email, phone, interest, marketing_consent, transactional_consent, consent)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
 
         await pool.query(query, [
-            agent_handle, 
-            first_name, 
-            last_name, 
-            phone, 
-            interest,
-            marketingVal,       // New Column
-            transactionalVal,   // New Column
-            generalConsentVal   // Old Column (Summary)
+            agent_handle, first_name, last_name, 
+            email,              // <--- Inserted here
+            phone, interest,
+            marketingVal, transactionalVal, generalConsentVal
         ]);
 
-        console.log(`✅ Lead saved! Marketing: ${marketingVal}, Transactional: ${transactionalVal}`);
-
-        // 5. Redirect to Thank You Page
         res.redirect(`/thank-you/${agent_handle}`);
 
     } catch (error) {
         console.error('🔥 SUBMISSION ERROR:', error);
-        res.status(500).send('There was an error processing your request.');
+        res.status(500).send('Error processing request.');
     }
 });
 
