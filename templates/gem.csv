@@ -1,0 +1,9 @@
+Category Title,Description
+Agent Administration,Core administrative tasks regarding agent lifecycles (onboarding, offboarding, editing profiles, hierarchies, and documents).
+Identity & Access Management,"Anything related to logging in, security, passwords, MFA, and SSO."
+Reporting & Performance,"Views related to stats, commissions, policy status, and bonus breakdowns."
+Lead Management (CRM),"The daily workflow of an agent working leads (dispositioning, calling, emailing, dashboarding) within Funnel."
+Lead Supply Chain (QLS),"The backend and frontend processes of buying, ordering, billing, and ingesting leads from vendors."
+Agent Marketing (Hatch),"The setup and management of agent personal websites, domains, and subscriptions."
+Advisory Tools (Pathfinder),"Advanced market sales tools, financial scenarios, and calculators."
+Support & Communication,"Help desks, ticketing, and internal messaging/content distribution."

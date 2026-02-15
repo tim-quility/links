@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find an Agent | Links Compliance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Quility Colors */
+        .bg-quility-teal {
+            background-color: #005851;
+        }
+
+        .text-quility-teal {
+            color: #005851;
+        }
+
+        .bg-quility-yellow {
+            background-color: #FFCC00;
+        }
+
+        .hover-bg-quility-yellow:hover {
+            background-color: #FFD633;
+        }
+
+        .text-quility-yellow {
+            color: #FFCC00;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 py-6 sticky top-0 z-10">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <div class="text-2xl font-bold text-quility-teal tracking-tight">
+                Quility Switchboard Funnel Agents
+            </div>
+            <a href="/login"
+                class="text-sm font-semibold text-slate-600 hover:text-quility-teal transition-colors">Agent Login</a>
+        </div>
+    </header>
+
+    <!-- Hero / Search -->
+    <div class="bg-quility-teal text-white py-24">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Find a Local Agent</h1>
+            <p class="text-slate-100 text-lg mb-10 font-medium opacity-90">Connect with a licensed professional in your
+                area for personalized insurance guidance.</p>
+
+            <form action="/" method="GET" class="relative max-w-xl mx-auto">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-search text-slate-400"></i>
+                    </div>
+                    <input type="text" name="q" placeholder="Search by city, state, or name..."
+                        class="w-full pl-11 pr-32 py-4 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-quility-yellow shadow-xl text-base"
+                        value="{{SEARCH_QUERY}}">
+                    <button type="submit"
+                        class="absolute right-2 top-2 bottom-2 bg-quility-yellow hover-bg-quility-yellow text-slate-900 px-6 rounded-md font-bold transition-colors">
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Results Grid -->
+    <main class="flex-grow py-16">
+        <div class="max-w-6xl mx-auto px-6">
+
+            <h2 class="text-2xl font-bold text-slate-800 mb-8 pb-4 border-b border-gray-100">{{RESULTS_HEADER}}</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {{AGENT_CARDS}}
+            </div>
+
+            <!-- No Results State -->
+            {{NO_RESULTS}}
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
+        <div class="max-w-6xl mx-auto px-6 text-center text-slate-400 text-sm font-medium">
+            &copy; 2026 Links Compliance Engine. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+
+</html>

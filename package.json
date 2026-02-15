@@ -2,8 +2,10 @@
   "name": "links-compliance-engine",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "init": "node scripts/setup-db.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
